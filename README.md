@@ -18,6 +18,7 @@ The STM32F726G evaluation board as a 12-bit ADC with a high pin voltage of $3.3 
 $$R_{therm} = \frac{R_1}{\frac{{ADC_{max}}}{{ADC_{sig}}} - 1 }.$$
 
 To convert this resistance to temperature we can use the Steinhart-Hart equation $R_{therm}(T) = R_{therm}(T_0)e^{β(\frac{1}{T}-\frac{1}{T_0})},$ where $R_{therm}(298K)=10kΩ$ and $β = 3650K.$ By rearranging for $T$ and substituting the expression for &R_{therm}$ above, we derive a final equation for the temperature of the thermistor. 
+
 $$\begin{aligned} 
 R_{therm} &= R_{therm}(T_0)e^{β(\frac{1}{T}-\frac{1}{T_0})}\\
 ln(R_{therm}) 	&= ln\left( R_{therm}(T_0)\right)* β \left(\frac{1}{T}-\frac{1}{T_0} \right)\\
@@ -27,6 +28,7 @@ ln(R_{therm}) 	&= ln\left( R_{therm}(T_0)\right)* β \left(\frac{1}{T}-\frac{1}{
  &=\left(   -\frac{1}{β} ln\left(   \frac{{ADC_{max}}}{{ADC_{sig}}}    - 1 \right)  +\frac{1}{T_0} \right)^{-1}\\
  &= \left(   -\frac{1}{4095K} ln\left(   \frac{4095.001}{{ADC_{sig}}}    - 1 \right)  +\frac{1}{298K} \right)^{-1}.
 \end{aligned}$$
+
 Note that at the chosen reference temperature $R_1=R_{therm}(298K)$. Additionally, this formula provides temperature in Kelvin; when implemented in code, simply add $273$ to convert to degrees Celsius. Finally, the code accounts for the singularity when $ADC_{sig}=4095$ by adding a tiny value to $ADC_{max}$. 
 
 ### PWM
