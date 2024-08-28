@@ -1,5 +1,7 @@
 ## Overview
 Characterizing a solar cell.
+Boilerplate statments about board number and file structures and contents.
+Change references in code to photodiode to solar cell.
 ## Hardware
 I integrated a Sunyima monocrystaline photocell into an op-amp current sink circuit, as displayed in the image below. This assembly is thermally bonded to a block of aluminum and an NTC thermistor embedded within. This thermistor is part of a voltage divider circuit as shown below. This circuit is driven by a PWM voltage, and the resulting voltage is measured by an ADC.
 
