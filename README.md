@@ -1,6 +1,5 @@
 ## Overview
-I wanted to explore the possibility of using solar cells as a sun sensor. It should be possible to mount four photocells equidistant from the origin on an x- and y-axis. At a basic level if both solar cells along a single axis generate an appreciable voltage then the sun sensor is normal to the sun; however, if one solar cell is darker then its opposite counterpart, simply rotating about the other axis will bring that solar cell into the light and generate a voltage. 
-
+Characterizing a solar cell.
 ## Hardware
 I integrated a Sunyima monocrystaline photocell into an op-amp current sink circuit, as displayed in the image below. This assembly is thermally bonded to a block of aluminum and an NTC thermistor embedded within. This thermistor is part of a voltage divider circuit as shown below. This circuit is driven by a PWM voltage, and the resulting voltage is measured by an ADC.
 
