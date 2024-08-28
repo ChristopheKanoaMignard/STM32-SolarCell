@@ -1,15 +1,20 @@
 ## Overview
+
 Characterizing a solar cell.
 Boilerplate statments about board number and file structures and contents.
 Change references in code to photodiode to solar cell.
+
 ## Hardware
+
 I integrated a Sunyima monocrystaline photocell into an op-amp current sink circuit, as displayed in the image below. This assembly is thermally bonded to a block of aluminum and an NTC thermistor embedded within. This thermistor is part of a voltage divider circuit as shown below. This circuit is driven by a PWM voltage, and the resulting voltage is measured by an ADC.
 
-[Circuit]
+![Screenshot 2024-08-28 152358](https://github.com/user-attachments/assets/116e98ca-957e-4f38-9b37-ed2189bee114)
 
 ### Thermistor & Voltage Divider
 
-The thermistor has a temperature-dependent resistance. Soldering it into a voltage divider allows us to determine this resistance, $R_{therm}$, based on the signal voltage: which is converted by the MCU ADC. This, in turn, allows us to determine the temperature. 
+The thermistor has a temperature-dependent resistance. Soldering it into a voltage divider, as drawn in the schematic below, allows us to determine this resistance, $R_{therm}$, based on the signal voltage: which is converted by the MCU ADC. This, in turn, allows us to determine the temperature. 
+
+![ThermistorVoltageDivider](https://github.com/user-attachments/assets/f40c534d-8090-41e2-b559-adecb36d4ffd)
 
  Using the voltage divider formula and rearranging to solve for the thermistor resistance produces:
 $$R_{therm} = \frac{R_1}{^{V_{cc}}/_{V_{sig}} - 1}.$$
@@ -36,23 +41,17 @@ Note that at the chosen reference temperature $R_1=R_{therm}(298K)$. Additionall
 The average voltage produced by our PWM is $V_{pwm} = duty * 3.3V.$ However, because of the voltage divider, the voltage at the op-amp's positive terminal is 
 $$V_{op+} = V_{pwm} * \frac{R_2}{R_3+R_2}=0.033V_{pwm}. $$
 The op-amp will force $V_{op+} = V_{op-},$ so the current flowing through $R_1,$ and therefore out of the solar cell, is
-$$
-I = \frac{V_{op+}} {R_1} = duty*0.11A.
-$$ 
+$$I = \frac{V_{op+}} {R_1} = duty*0.11A.$$ 
 With this formula, we are able to control the current by adjusting the duty cycle. While this is deceptively simple, several complications arose that provided good learning opportunities. First 
 
 ## Data and Analysis
 First we want to confirm that the solar cell is working as expected. The solar cell should have a maximum $2.3V$ open-circuit voltage which should also be temperature-dependent. I exposed the solar cell to an incandescent light and ramped the current between $0A$ and $1.2A$ using a PWM peripheral. As seen below, we confirmed that the I-V curve looks exactly was we expected. 
 
-[IV curve gif]
-
-An interesting issue arose when I looked at the voltage with an oscilloscope. The voltage was spiking when the the PWM signal changed states, clearly indicating some sort of coupling. The coupling was produced because I had set the timer frequency too slow: within an order of magnitude of the cutoff frequency. 
-
-[Schematic diagram]
-
-The equivalent resistance of this circuit is $3.2kΩ,$ so the cutoff frequency is $50Hz.$ Therefore the PWM frequency ought to be at least a couple orders of magnitude larger. 
+![PhotodetectorIVCurves](https://github.com/user-attachments/assets/61125fdc-d8a9-4139-8044-dfcc7ab7b92a)
 
 ## Complications and Learning Opportunities
 
+An interesting issue arose when I looked at the voltage with an oscilloscope. The voltage was spiking when the the PWM signal changed states, clearly indicating some sort of coupling. The coupling was produced because I had set the timer frequency too slow: within an order of magnitude of the cutoff frequency. 
 
+The equivalent resistance of this circuit is $3.2kΩ,$ so the cutoff frequency is $50Hz.$ Therefore the PWM frequency ought to be at least a couple orders of magnitude larger. 
 
