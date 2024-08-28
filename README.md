@@ -17,7 +17,7 @@ $$R_{therm} = \frac{R_1}{^{V_{cc}}/_{V_{sig}} - 1}.$$
 The STM32F726G evaluation board as a 12-bit ADC with a high pin voltage of $3.3 V$, so the ratio between signal voltage per ADC value and their maximums is $\frac{V_{sig}}{ADC_{sig}} = \frac{V_{cc}}{ADC_{max}} =\frac{3.3V}{4095bits}.$ Rearranging for the ratio of voltages and substituting yeilds the formula:
 $$R_{therm} = \frac{R_1}{\frac{{ADC_{max}}}{{ADC_{sig}}} - 1 }.$$
 
-To convert this resistance to temperature we can use the Steinhart-Hart equation $R_{therm}(T) = R_{therm}(T_0)e^{β(\frac{1}{T}-\frac{1}{T_0})},$ where $R_{therm}(298K)=10kΩ$ and $β = 3650K.$ By rearranging for $T$ and substituting the expression for &R_{therm}$ above, we derive a final equation for the temperature of the thermistor. 
+To convert this resistance to temperature we can use the Steinhart-Hart equation $R_{therm}(T) = R_{therm}(T_0)e^{β(\frac{1}{T}-\frac{1}{T_0})},$ where $R_{therm}(298K)=10kΩ$ and $β = 3650K.$ By rearranging for $T$ and substituting the expression for $R_{therm}$ above, we derive a final equation for the temperature of the thermistor. 
 
 $$\begin{aligned} 
 R_{therm} &= R_{therm}(T_0)e^{β(\frac{1}{T}-\frac{1}{T_0})}\\
